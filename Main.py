@@ -1,83 +1,53 @@
-class Solution:
-    def __init__(self, size):
-        self.stack = []
-        self.queue = []
-        self.size = size
-        self.top = -1
-        self.rear = -1
-        self.front = -1
+class MyCircularQueue:
+    def __init__(self, size: int):
+        # Write code here
 
-    def is_stack_empty(self):
-        if self.top == -1:
-            return True
-        else:
-            return False
+    def enqueue(self, value: int) -> bool:
+        # Write code here
 
-    def is_queue_empty(self):
-        if self.rear == -1 and self.front == -1:
-            return True
-        else:
-            return False
-        
-    def is_stack_full(self):
-        if self.size == len(self.stack):
-            return True
-        else:
-            return False
+    def dequeue(self) -> bool:
+        # Write code here
 
-    def is_queue_full(self):
-        if self.size == len(self.queue):
-            return True
-        else:
-            return False
+    def get_front(self) -> int:
+        # Write code here
 
-    def push_character(self, character):
-        if not self.is_stack_full():
-            self.stack.append(character)
-            self.top += 1
+    def get_rear(self):
+        # Write code here
 
-    def enqueue_character(self, character):
-        if not self.is_queue_full():
-            self.queue.append(character)
-            self.rear += 1
-            if self.front == -1:
-                self.front += 1
+    def is_empty(self):
+        # Write code here
 
-    def pop_character(self):
-        if not self.is_stack_empty():
-            data = self.stack.pop()
-            self.top -= 1
-            return data
-    
-    def dequeue_character(self):
-        if not self.is_queue_empty():
-            data = self.queue[self.front]
-            self.front += 1
-            return data
+    def is_full(self):
+        # Write code here
 
 
-text = input()
-length_of_text = len(text)
-solution = Solution(length_of_text)
+# Do not change the following code
+operations = []
+for specific_operation in input().split(','):
+    operations.append(specific_operation.strip())
+data = []
+for item in input().split(','):
+    item = item.strip()
+    if item == '-':
+        data.append([])
+    else:
+        data.append([int(item)])
+obj = MyCircularQueue(data[0][0])
+result = []
+for i in range(len(operations)):
+    if i == 0:
+        result.append(None)
+    elif operations[i] == "enqueue":
+        result.append(obj.enqueue(data[i][0]))
+    elif operations[i] == "get_rear":
+        result.append(obj.get_rear())
+    elif operations[i] == "get_front":
+        result.append(obj.get_front())
+    elif operations[i] == "dequeue":
+        result.append(obj.dequeue())
+    elif operations[i] == "is_full":
+        result.append(obj.is_full())
+    elif operations[i] == "is_empty":
+        result.append(obj.is_empty())
 
-# push/enqueue all the characters of string text to stack
-for index in range(length_of_text):
-    solution.push_character(text[index])
-    solution.enqueue_character(text[index])
-
-is_palindrome = True
-'''
-pop the top character from stack
-dequeue the first character from queue
-compare both characters
-If the comparison fails, set is_palindrome as False.
-'''
-
-for index in range(length_of_text):
-    if solution.pop_character() != solution.dequeue_character():
-        is_palindrome = False
-        break
-if is_palindrome:
-    print("The word, " + text + ", is a palindrome.")
-else:
-    print("The word, " + text + ", is not a palindrome.")
+print(result)
